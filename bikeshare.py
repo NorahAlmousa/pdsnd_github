@@ -6,7 +6,7 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
-# arrays for the months and days 
+#*arrays for the months and days 
 months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
 days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
@@ -24,7 +24,7 @@ def get_filters():
     
     print('Hello! Let\'s explore some US bikeshare data!')
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    city = str.lower( input('----Choose one of the cities > chicago, new york city , washington:').strip())
+    city = str.lower(input('----Choose one of the cities > chicago, new york city , washington:').strip())
     while city not in CITY_DATA:
         city = str.lower(input('Invalid,please choose again : ').strip())
         
@@ -34,9 +34,9 @@ def get_filters():
         month = str.lower(input('Invalid,please choose again : ').strip())
 
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
-    day = str.lower(input('----Choose one day or "all" >monday,tuesday,wednesday,thursday,friday,saturday,sunday:').strip())
+    day = str.lower(input('----Choose one day or "all" >monday,tuesday,wednesday,thursday,friday,saturday,sunday:').strip)
     while day not in days:
-        day = str.lower(input('Invalid,please choose again : ').strip())
+        day = str.lower(input('Invalid,please choose again : ').strip)
 
     print('-'*45)
     return city, month, day
@@ -56,7 +56,7 @@ def load_data(city, month, day):
     
     # Loading data file into a dataframe.
     df = pd.read_csv(CITY_DATA[city])
-
+    
     # Converting the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
 
@@ -77,7 +77,8 @@ def load_data(city, month, day):
     if day != 'all':
         # Filtering by day of week to create the new dataframe
         df = df[df['day_of_week'] == day.title()]
-
+   
+    
 
         
     return df
@@ -155,11 +156,13 @@ def user_stats(df):
     print('The counts of user types :\n{}'.format(df['User Type'].value_counts()))
 
     # TO DO: Display counts of gender
-    print('The counts of user types :\n{}'.format(df['Gender'].value_counts()))
+    if 'Gender' in df.columns :
+     print('The counts of user types :\n{}'.format(df['Gender'].value_counts()))
 
 
     # TO DO: Display earliest, most recent, and most common year of birth
-    print('The earliest year of birth : {}\nThe most recent year of birth : {}\nThe most common year of birth:{}'.format(df['Birth Year'].max(),df['Birth Year'].min(),df['Birth Year'].mode()[0]) )
+    if 'Birth Year' in df.columns:
+     print('The earliest year of birth : {}\nThe most recent year of birth : {}\nThe most common year of birth:{}'.format(df['Birth Year'].max(),df['Birth Year'].min(),df['Birth Year'].mode()[0]) )
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*45)
@@ -174,11 +177,41 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df)
+        
+ #Display Data 
+        Display_Data = str.lower(input('\nWould you like to see the 5 lines of raw data? Enter yes or no .'))
+        index = 0
+         
+         
+        if (Display_Data!='yes') and  (Display_Data!= 'no'):
+           Display_Data = str.lower(input('Invalid,please enter yes or no again : '))
+        elif Display_Data == 'yes':          
+            print(df.head())
+            
+            while True :  
+                
+              Display_Data = str.lower(input('\nWould you like to see the next 5 lines of raw data? Enter yes or no .'))
+          
+              while (Display_Data!='yes') and  (Display_Data!= 'no'):
+                Display_Data = str.lower(input('Invalid,please enter yes or no again : '))
+                
+              index += 5  
+              if Display_Data == 'yes' :
+                   
+                    if (index+5) < (len(df)) :
+                      print(df.iloc[index:index+5])
+                    else :
+                        print('No more raw data to display!')
+                
+              else :
+                   break
+        else :
+              break 
+      
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
-
 
 
 if __name__ == "__main__":
