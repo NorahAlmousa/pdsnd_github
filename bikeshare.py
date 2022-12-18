@@ -6,7 +6,7 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
-#*arrays for the months and days 
+# arrays for the months and days 
 months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
 days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
@@ -38,7 +38,7 @@ def get_filters():
     while day not in days:
         day = str.lower(input('Invalid,please choose again : ').strip())
 
-    print('-'*40)
+    print('-'*45)
     return city, month, day
 
 
@@ -105,7 +105,7 @@ def time_stats(df):
     print('The most common hour :{}'.format(Most_Common_hour))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*45)
 
 
 def station_stats(df):
@@ -126,7 +126,7 @@ def station_stats(df):
     print('The most frequent combination of start station and end station trip:\n{}'.format(Combination_Station))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*45)
 
 
 def trip_duration_stats(df):
@@ -142,7 +142,7 @@ def trip_duration_stats(df):
     print('The mean of the travel time : {}'.format(df['Trip Duration'].mean()))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*45)
 
 
 def user_stats(df):
@@ -162,7 +162,7 @@ def user_stats(df):
     print('The earliest year of birth : {}\nThe most recent year of birth : {}\nThe most common year of birth:{}'.format(df['Birth Year'].max(),df['Birth Year'].min(),df['Birth Year'].mode()[0]) )
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*45)
 
 
 def main():
@@ -178,6 +178,7 @@ def main():
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
+
 
 
 if __name__ == "__main__":
